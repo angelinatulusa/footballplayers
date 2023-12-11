@@ -1,0 +1,59 @@
+﻿@model footballplayers.Models.Player
+@{
+    ViewData["Title"] = "Add Player";
+}
+
+<h1>Add Player</h1>
+
+<form asp-action="Add">
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Gender"></label>
+        <input asp-for="Gender" class="form-control" />
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BirthDate"></label>
+        <input asp-for="BirthDate" type="date" class="form-control" />
+        <span asp-validation-for="BirthDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Country"></label>
+        <select asp-for="Country" asp-items="@GetCountryList()" class="form-control"></select>
+        <span asp-validation-for="Country" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TeamId"></label>
+        <select asp-for="TeamId" asp-items="@GetTeamList()" class="form-control"></select>
+        <span asp-validation-for="TeamId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Player</button>
+</form>
+
+@functions {
+    SelectList GetCountryList()
+    {
+        return new SelectList(new[] { "Australia", "Brazil", "Canada", "Japan", "South Africa"});
+    }
+
+    SelectList GetTeamList()
+    {
+        var teams = ViewBag.Teams as List<Team>;
+        return new SelectList(teams, "TeamId", "TeamName");
+    }
+}
